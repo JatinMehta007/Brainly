@@ -1,16 +1,15 @@
 
 import express from "express";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import z from "zod";
 import { ContenModel, LinkModel, UserModel } from "./db";
 import { JWT_PASSWORD } from './config';
 import { UserMiddleware } from './middleware';
 import { random } from "./utils";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
-
+app.use(cors()); 
 
 
 app.post("/api/v1/signup" , async (req,res)=>{
@@ -59,11 +58,10 @@ app.post("/api/v1/signin", async (req,res)=>{
 app.post("/api/v1/content",UserMiddleware  ,async (req,res)=>{
     const link = req.body.link;
     const type = req.body.type;
-    const title = req.body.title;
     await ContenModel.create({
         link, 
         type,
-        title,
+        title : req.body.title,
         //@ts-ignore
         userId : req.userId,
         tags : []
