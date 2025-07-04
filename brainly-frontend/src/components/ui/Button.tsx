@@ -7,6 +7,8 @@
     startIcon? : any;
     endIcon? : any;
     onClick? : () => void;
+    fullWidth? : boolean;
+    loading? : boolean;
 }
 
 const VariantStyles= {
@@ -21,14 +23,14 @@ const VariantStyles= {
 // }
 const defaultStyles = "rounded-md  px-4 py-2 flex justify-center items-center ";
 
-export const Button=({variant, text, startIcon, endIcon,onClick} : ButtonProps)=>{
-    return  <button onClick={onClick} className={`${VariantStyles[variant]} + ${defaultStyles}`} >
+export const Button=({variant, text, startIcon, endIcon,onClick, fullWidth, loading } : ButtonProps)=>{
+    return  <button onClick={onClick} className={`${VariantStyles[variant]} + ${defaultStyles} + ${fullWidth ? " w-full flex justify-center items-center " : ""} + ${loading ? "opacity-35" :""}`}  disabled={loading}>
          <div className="flex items-center ">
          {startIcon ? <div className="pr-2">{startIcon}</div> : null} {text} {endIcon} 
          </div>
          
          </button>
-}
+} 
 
 
 <Button variant="primary" size="md" text="jatin" onClick={()=>{}}></Button>
